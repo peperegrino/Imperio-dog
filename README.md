@@ -99,9 +99,13 @@ VALUES
 
 O CPF deve ser único na base. Não exponha credenciais reais em scripts versionados.
 
+## Frontend integration and API testing docs
+
+Para instruções detalhadas de teste de endpoints e integração com frontend, consulte o documento em `docs/API_TESTING_FRONTEND.md`.
+
 ## Fluxo de teste da API
 
-Os comandos seguintes usam `Invoke-RestMethod` do PowerShell, com a aplicação em `http://localhost:8080`. Primeiro autentique o administrador; as rotas `/admin/**` exigem o papel `ROLE_ADMIN`.
+Os comandos seguintes usam `Invoke-RestMethod` do PowerShell, com a aplicação em `http://localhost:8080`. Primeiro autentique o administrador; as rotas `/admin/**` exigem o papel `ROLE_ADMIN`. Para o frontend, prefira usar a base `http://localhost:8080/api` e o mesmo payload esperado nos DTOs de request.
 
 ```powershell
 $base = 'http://localhost:8080'
