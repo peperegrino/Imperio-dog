@@ -1,6 +1,7 @@
 package com.example.imperiodogapi.service;
 
-import com.example.imperiodogapi.dto.PetDTO;
+import com.example.imperiodogapi.dto.PetRequestDTO;
+import com.example.imperiodogapi.dto.PetResponseDTO;
 import com.example.imperiodogapi.entities.Customer;
 import com.example.imperiodogapi.entities.Pet;
 import com.example.imperiodogapi.repository.CustomerRepository;
@@ -24,25 +25,29 @@ public class PetService {
     }
 
     @Transactional
-    public PetDTO create(PetDTO request) {
+    public PetResponseDTO create(PetRequestDTO request) {
         Customer customer = getCustomer(request.customerId());
-        Pet pet = Pet.builder().name(request.name().trim()).species(request.species())
-                .breed(request.breed()).customer(customer).build();
+        Pet pet = Pet.builder()
+                .name(request.name().trim())
+                .species(request.species())
+                .breed(request.breed())
+                .customer(customer)
+                .build();
         return toDto(petRepository.save(pet));
     }
 
     @Transactional(readOnly = true)
-    public List<PetDTO> findAll() {
+    public List<PetResponseDTO> findAll() {
         return petRepository.findAll().stream().map(this::toDto).toList();
     }
 
     @Transactional(readOnly = true)
-    public PetDTO findById(Long id) {
+    public PetResponseDTO findById(Long id) {
         return toDto(getPet(id));
     }
 
     @Transactional
-    public PetDTO update(Long id, PetDTO request) {
+    public PetResponseDTO update(Long id, PetRequestDTO request) {
         Pet pet = getPet(id);
         pet.setName(request.name().trim());
         pet.setSpecies(request.species());
@@ -66,7 +71,7 @@ public class PetService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
     }
 
-    private PetDTO toDto(Pet pet) {
-        return new PetDTO(pet.getId(), pet.getName(), pet.getSpecies(), pet.getBreed(), pet.getCustomer().getId());
+    private PetResponseDTO toDto(Pet pet) {
+        return new PetResponseDTO(pet.getId(), pet.getName(), pet.getSpecies(), pet.getBreed(), pet.getCustomer().getId());
     }
 }

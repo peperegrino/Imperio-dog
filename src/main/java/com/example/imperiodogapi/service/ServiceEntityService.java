@@ -1,6 +1,7 @@
 package com.example.imperiodogapi.service;
 
-import com.example.imperiodogapi.dto.ServiceDTO;
+import com.example.imperiodogapi.dto.ServiceRequestDTO;
+import com.example.imperiodogapi.dto.ServiceResponseDTO;
 import com.example.imperiodogapi.entities.ServiceEntity;
 import com.example.imperiodogapi.repository.ServiceRepository;
 import org.springframework.http.HttpStatus;
@@ -20,24 +21,27 @@ public class ServiceEntityService {
     }
 
     @Transactional
-    public ServiceDTO create(ServiceDTO request) {
-        ServiceEntity service = ServiceEntity.builder().name(request.name().trim())
-                .description(request.description()).price(request.price()).build();
+    public ServiceResponseDTO create(ServiceRequestDTO request) {
+        ServiceEntity service = ServiceEntity.builder()
+                .name(request.name().trim())
+                .description(request.description())
+                .price(request.price())
+                .build();
         return toDto(serviceRepository.save(service));
     }
 
     @Transactional(readOnly = true)
-    public List<ServiceDTO> findAll() {
+    public List<ServiceResponseDTO> findAll() {
         return serviceRepository.findAll().stream().map(this::toDto).toList();
     }
 
     @Transactional(readOnly = true)
-    public ServiceDTO findById(Long id) {
+    public ServiceResponseDTO findById(Long id) {
         return toDto(getService(id));
     }
 
     @Transactional
-    public ServiceDTO update(Long id, ServiceDTO request) {
+    public ServiceResponseDTO update(Long id, ServiceRequestDTO request) {
         ServiceEntity service = getService(id);
         service.setName(request.name().trim());
         service.setDescription(request.description());
@@ -55,7 +59,7 @@ public class ServiceEntityService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Service not found"));
     }
 
-    private ServiceDTO toDto(ServiceEntity service) {
-        return new ServiceDTO(service.getId(), service.getName(), service.getDescription(), service.getPrice());
+    private ServiceResponseDTO toDto(ServiceEntity service) {
+        return new ServiceResponseDTO(service.getId(), service.getName(), service.getDescription(), service.getPrice());
     }
 }

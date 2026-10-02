@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping("/webhooks/mercadopago")
+@RequestMapping({"/webhooks/mercadopago", "/api/webhooks/mercadopago"})
 public class MercadoPagoWebhookController {
 
     private final WebhookService webhookService;

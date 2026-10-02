@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
+@Deprecated(forRemoval = false)
 public record ServiceDTO(
         Long id,
         @NotBlank @Size(max = 255) String name,

@@ -4,8 +4,10 @@ import com.example.imperiodogapi.dto.ChargeRequestDTO;
 import com.example.imperiodogapi.dto.ChargeResponseDTO;
 import com.example.imperiodogapi.dto.CustomerRequestDTO;
 import com.example.imperiodogapi.dto.CustomerResponseDTO;
-import com.example.imperiodogapi.dto.PetDTO;
-import com.example.imperiodogapi.dto.ServiceDTO;
+import com.example.imperiodogapi.dto.PetRequestDTO;
+import com.example.imperiodogapi.dto.PetResponseDTO;
+import com.example.imperiodogapi.dto.ServiceRequestDTO;
+import com.example.imperiodogapi.dto.ServiceResponseDTO;
 import com.example.imperiodogapi.entities.enums.ChargeStatus;
 import com.example.imperiodogapi.service.ChargeService;
 import com.example.imperiodogapi.service.CustomerService;
@@ -27,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping({"/admin", "/api/admin"})
 public class AdminController {
 
     private final CustomerService customerService;
@@ -54,22 +56,22 @@ public class AdminController {
     }
 
     @PostMapping("/services")
-    public ResponseEntity<ServiceDTO> createService(@Valid @RequestBody ServiceDTO request) {
+    public ResponseEntity<ServiceResponseDTO> createService(@Valid @RequestBody ServiceRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceEntityService.create(request));
     }
 
     @GetMapping("/services")
-    public List<ServiceDTO> listServices() {
+    public List<ServiceResponseDTO> listServices() {
         return serviceEntityService.findAll();
     }
 
     @GetMapping("/services/{id}")
-    public ServiceDTO getService(@PathVariable Long id) {
+    public ServiceResponseDTO getService(@PathVariable Long id) {
         return serviceEntityService.findById(id);
     }
 
     @PutMapping("/services/{id}")
-    public ServiceDTO updateService(@PathVariable Long id, @Valid @RequestBody ServiceDTO request) {
+    public ServiceResponseDTO updateService(@PathVariable Long id, @Valid @RequestBody ServiceRequestDTO request) {
         return serviceEntityService.update(id, request);
     }
 
@@ -80,22 +82,22 @@ public class AdminController {
     }
 
     @PostMapping("/pets")
-    public ResponseEntity<PetDTO> createPet(@Valid @RequestBody PetDTO request) {
+    public ResponseEntity<PetResponseDTO> createPet(@Valid @RequestBody PetRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(petService.create(request));
     }
 
     @GetMapping("/pets")
-    public List<PetDTO> listPets() {
+    public List<PetResponseDTO> listPets() {
         return petService.findAll();
     }
 
     @GetMapping("/pets/{id}")
-    public PetDTO getPet(@PathVariable Long id) {
+    public PetResponseDTO getPet(@PathVariable Long id) {
         return petService.findById(id);
     }
 
     @PutMapping("/pets/{id}")
-    public PetDTO updatePet(@PathVariable Long id, @Valid @RequestBody PetDTO request) {
+    public PetResponseDTO updatePet(@PathVariable Long id, @Valid @RequestBody PetRequestDTO request) {
         return petService.update(id, request);
     }
 

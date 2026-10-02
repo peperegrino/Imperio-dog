@@ -44,10 +44,17 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(provider)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/login", "/webhooks/mercadopago").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/customers/me", "/charges/my-charges").hasRole("CLIENT")
-                        .requestMatchers("/charges/**", "/customers/**").authenticated()
+                        .requestMatchers(HttpMethod.POST,
+                                "/auth/login", "/api/auth/login",
+                                "/webhooks/mercadopago", "/api/webhooks/mercadopago")
+                        .permitAll()
+                        .requestMatchers("/admin/**", "/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET,
+                                "/customers/me", "/api/customers/me",
+                                "/charges/my-charges", "/api/charges/my-charges")
+                        .hasRole("CLIENT")
+                        .requestMatchers("/charges/**", "/api/charges/**", "/customers/**", "/api/customers/**")
+                        .authenticated()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
