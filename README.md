@@ -26,18 +26,18 @@ O aplicativo Expo fica em `mobile/` e usa JavaScript (`.js` e `.jsx`), sem TypeS
 
 ```text
 mobile/src/
-├── assets/       # imagens, fontes e ícones
-├── components/   # Button, Card e Input reutilizáveis
+├── assets/       # imagens e ícones
+├── components/   # Button, Input, Checkbox, RoleTabs, LogoHeader, SecurityFooter, FontLoading e ícones
 ├── screens/      # Login, Home, Customers, Pets, Services e Charges
 ├── navigation/   # configuração do React Navigation native-stack
 ├── hooks/        # hooks customizados
 ├── services/     # integrações e chamadas de API
 ├── contexts/     # contextos compartilhados
-├── theme/        # cores, tipografia e espaçamentos
+├── theme/        # cores, tipografia, espaçamentos e raios
 └── utils/        # funções auxiliares
 ```
 
-Cada tela e componente tem seu próprio `index.jsx` e `styles.js`. Os estilos devem ser definidos com `StyleSheet.create()` do React Native; os arquivos de estilo das telas começam apenas com o estilo `container`. As telas e componentes são esqueletos para desenvolvimento posterior, sem lógica de negócio ou integração com a API.
+Cada tela e componente tem seu próprio `index.jsx` e `styles.js`, com estilos definidos por `StyleSheet.create()` do React Native. A tela `Login` contém a interface de autenticação e os estados locais dos campos, perfil, senha visível e opção de lembrar; suas ações apenas registram eventos no console, sem chamadas à API ou lógica de autenticação. As demais telas permanecem como esqueletos.
 
 Para instalar as dependências e iniciar o aplicativo no PowerShell:
 
@@ -45,6 +45,9 @@ Para instalar as dependências e iniciar o aplicativo no PowerShell:
 cd mobile
 npm install
 npx expo install @react-navigation/native @react-navigation/native-stack
+npx expo install react-native-screens react-native-safe-area-context
+npx expo install expo-font react-native-svg
+npm install @expo-google-fonts/plus-jakarta-sans
 npx expo start
 ```
 
