@@ -20,6 +20,34 @@ O projeto foi organizado em commits por etapa funcional:
 
 As camadas ficam sob `com.example.imperiodogapi`: `dto`, `controller`, `service`, `repository`, `security`, `config` e `entities`. Os DTOs mantêm os payloads HTTP separados das entidades JPA.
 
+## Aplicativo mobile
+
+O aplicativo Expo fica em `mobile/` e usa JavaScript (`.js` e `.jsx`), sem TypeScript. O código-fonte está em `mobile/src/`, organizado por responsabilidade:
+
+```text
+mobile/src/
+├── assets/       # imagens, fontes e ícones
+├── components/   # Button, Card e Input reutilizáveis
+├── screens/      # Login, Home, Customers, Pets, Services e Charges
+├── navigation/   # configuração do React Navigation native-stack
+├── hooks/        # hooks customizados
+├── services/     # integrações e chamadas de API
+├── contexts/     # contextos compartilhados
+├── theme/        # cores, tipografia e espaçamentos
+└── utils/        # funções auxiliares
+```
+
+Cada tela e componente tem seu próprio `index.jsx` e `styles.js`. Os estilos devem ser definidos com `StyleSheet.create()` do React Native; os arquivos de estilo das telas começam apenas com o estilo `container`. As telas e componentes são esqueletos para desenvolvimento posterior, sem lógica de negócio ou integração com a API.
+
+Para instalar as dependências e iniciar o aplicativo no PowerShell:
+
+```powershell
+cd mobile
+npm install
+npx expo install @react-navigation/native @react-navigation/native-stack
+npx expo start
+```
+
 ## Requisitos
 
 - JDK 21.
